@@ -64,6 +64,7 @@ func (provider *ServiceProvider) Init(conf *Config) {
 	}
 	provider.Workspace = conf.Workspace
 	fmt.Println("TEST", conf.ESHost)
+	//elastic.SetSniff(false)設定參考 https://blog.csdn.net/Bobdragery/article/details/106826115
 	provider.ESClient, _ = elastic.NewClient(elastic.SetSniff(false), elastic.SetURL(conf.ESHost))
 }
 

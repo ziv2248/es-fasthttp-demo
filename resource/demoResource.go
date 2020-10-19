@@ -84,6 +84,9 @@ func (r *DemoResource) GET(ctx *fasthttp.RequestCtx) {
 		response = append(response, resPersonBody)
 	}
 	responseStr, _ := json.Marshal(response)
+	if len(response) == 0 {
+		responseStr, _ = json.Marshal(Person{FirstName: "", LastName: "", Id: ""})
+	}
 	ctx.Success("text/plain", []byte(responseStr))
 }
 
@@ -138,7 +141,8 @@ func (r *DemoResource) Put(ctx *fasthttp.RequestCtx) {
 		ctx.Error(err.Error(), fasthttp.StatusInternalServerError)
 		panic(err)
 	}
-	ctx.Success("text/plain", []byte(esResponse.Result))
+	fmt.Println(esResponse.Result)
+	ctx.Success("text/plain", []byte("Success!!"))
 }
 
 func (r *DemoResource) Delete(ctx *fasthttp.RequestCtx) {
@@ -163,5 +167,6 @@ func (r *DemoResource) Delete(ctx *fasthttp.RequestCtx) {
 		ctx.Error(err.Error(), fasthttp.StatusInternalServerError)
 		panic(err)
 	}
-	ctx.Success("text/plain", []byte(esResponse.Result))
+	fmt.Println(esResponse.Result)
+	ctx.Success("text/plain", []byte("Success!!"))
 }
